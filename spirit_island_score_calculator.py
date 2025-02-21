@@ -1,7 +1,7 @@
 import streamlit as st
-import openpyxl
-from openpyxl import Workbook
-import os
+#import openpyxl
+#from openpyxl import Workbook
+#import os
 
 # Data for dropdown options
 spirits = [
@@ -134,24 +134,24 @@ difficulty_scenario = scenario_lookup.get(scenario, "Scenario not found")
 difficulty = difficulty_adversary + difficulty_scenario
 
 # Function to create and write to the Excel file
-def write_to_excel(data):
-    file_path = "spirit_island_tracker.xlsx"
-    # Check if the file exists
-    if not os.path.exists(file_path):
-        # Create a new workbook and add headers
-        wb = Workbook()
-        ws = wb.active
-        ws.append(["Spirit", "Scenario", "Adversary", "Adversary Level", "Win State", "Blight Remaining", "Dahan Surviving",
-                   "Invader Cards Left", "Invader Cards Used", "Adversary Difficulty", "Scenario Difficulty", "Total Difficulty", "Score"])
-        wb.save(file_path)
-    else:
-        # Open the existing workbook
-        wb = openpyxl.load_workbook(file_path)
-        ws = wb.active
+#def write_to_excel(data):
+#file_path = "spirit_island_tracker.xlsx"
+# Check if the file exists
+#if not os.path.exists(file_path):
+# Create a new workbook and add headers
+# wb = Workbook()
+#ws = wb.active
+# ws.append(["Spirit", "Scenario", "Adversary", "Adversary Level", "Win State", "Blight Remaining", "Dahan Surviving",
+#                "Invader Cards Left", "Invader Cards Used", "Adversary Difficulty", "Scenario Difficulty", "Total Difficulty", "Score"])
+#wb.save(file_path)
+#else:
+# Open the existing workbook
+# wb = openpyxl.load_workbook(file_path)
+# ws = wb.active
 
-    # Write the data to a new row
-    ws.append(data)
-    wb.save(file_path)
+# Write the data to a new row
+# ws.append(data)
+# wb.save(file_path)
 
 # Button to calculate the score
 if st.button("Calculate Score"):
@@ -159,14 +159,14 @@ if st.button("Calculate Score"):
         if blight_remaining and dahan_surviving and invader_cards_left_deck and invader_cards_used:
             score = 10 + difficulty * 5 + (dahan_surviving * 1) - (blight_remaining * 1) + invader_cards_left_deck * 2
             st.success(f"Score: {score}")
-            # Save the data to Excel
-            write_to_excel([spirit, scenario, adversary, adversary_level, winState, blight_remaining, dahan_surviving,
-                            invader_cards_left_deck, invader_cards_used, difficulty_adversary, difficulty_scenario, difficulty, score])
+# Save the data to Excel
+# write_to_excel([spirit, scenario, adversary, adversary_level, winState, blight_remaining, dahan_surviving,
+#  invader_cards_left_deck, invader_cards_used, difficulty_adversary, difficulty_scenario, difficulty, score])
         else:
             st.error("Please fill in all fields to calculate the score.")
     else:
         score = 0 + difficulty * 2 + (dahan_surviving * 1) - (blight_remaining * 1) + invader_cards_used * 1
         st.success(f"Score: {score}")
-        # Save the data to Excel
-        write_to_excel([spirit, scenario, adversary, adversary_level, winState, blight_remaining, dahan_surviving,
-                        invader_cards_left_deck, invader_cards_used, difficulty_adversary, difficulty_scenario, difficulty, score])
+# Save the data to Excel
+#write_to_excel([spirit, scenario, adversary, adversary_level, winState, blight_remaining, dahan_surviving,
+# invader_cards_left_deck, invader_cards_used, difficulty_adversary, difficulty_scenario, difficulty, score])
