@@ -1,7 +1,4 @@
 import streamlit as st
-#import openpyxl
-#from openpyxl import Workbook
-#import os
 
 # Data for dropdown options
 spirits = [
@@ -17,12 +14,12 @@ spirits = [
 ]
 
 scenarios = [
-    "Blitz", "Guard the Isle's Heart", "Rituals of Terror", "Dahan Insurrection", "Elemental Invocation", "Despicable Theft",
+    "none","Blitz", "Guard the Isle's Heart", "Rituals of Terror", "Dahan Insurrection", "Elemental Invocation", "Despicable Theft",
     "The Great River", "Powers Long Forgotten", "Ward the Shores", "Second Wave", "Surges of Colonization", "Destiny Unfolds"
 ]
 
 adversaries = [
-    "The Kingdom of Brandenburg-Prussia", "The Kingdom of England", "The Kingdom of Sweden", "The Tsardom of Russia",
+    "none","The Kingdom of Brandenburg-Prussia", "The Kingdom of England", "The Kingdom of Sweden", "The Tsardom of Russia",
     "The Habsburg Monarchy (Livestock Colony)", "The Kingdom of France (Plantation Colony)", "Habsburg Mining Expedition"
 ]
 
@@ -33,8 +30,8 @@ winOptions = [
 ]
 
 # Streamlit app layout
-st.title("Spirit Island Tracker")
-st.subheader("Select your options and enter the necessary data")
+st.title("Spirit Island Score Calculator")
+st.subheader("Complete all fields. For one-spirit solo only")
 
 # Dropdowns for selecting spirit, scenario, adversary, and adversary level
 spirit = st.selectbox("Select Spirit", spirits)
@@ -51,6 +48,14 @@ invader_cards_used = st.number_input("Invader Cards Faceup", min_value=0, step=1
 
 # Adversary difficulty lookup
 adversary_lookup = {
+    ("none", 0): 0,
+    ("none", 1): 0,
+    ("none", 2): 0,
+    ("none", 3): 0,
+    ("none", 4): 0,
+    ("none", 5): 0,
+    ("none", 6): 0,
+
     ("The Kingdom of Brandenburg-Prussia", 0): 1,
     ("The Kingdom of Brandenburg-Prussia", 1): 2,
     ("The Kingdom of Brandenburg-Prussia", 2): 4,
@@ -110,6 +115,7 @@ adversary_lookup = {
 
 # Scenario difficulty lookup
 scenario_lookup = {
+    "none": 0,
     "Blitz": 0,
     "Guard the Isle's Heart": 0,
     "Rituals of Terror": 3,
@@ -133,40 +139,14 @@ difficulty_scenario = scenario_lookup.get(scenario, "Scenario not found")
 # Calculate the total difficulty
 difficulty = difficulty_adversary + difficulty_scenario
 
-# Function to create and write to the Excel file
-#def write_to_excel(data):
-#file_path = "spirit_island_tracker.xlsx"
-# Check if the file exists
-#if not os.path.exists(file_path):
-# Create a new workbook and add headers
-# wb = Workbook()
-#ws = wb.active
-# ws.append(["Spirit", "Scenario", "Adversary", "Adversary Level", "Win State", "Blight Remaining", "Dahan Surviving",
-#                "Invader Cards Left", "Invader Cards Used", "Adversary Difficulty", "Scenario Difficulty", "Total Difficulty", "Score"])
-#wb.save(file_path)
-#else:
-# Open the existing workbook
-# wb = openpyxl.load_workbook(file_path)
-# ws = wb.active
-
-# Write the data to a new row
-# ws.append(data)
-# wb.save(file_path)
-
 # Button to calculate the score
 if st.button("Calculate Score"):
     if winState == "Yes":
         if blight_remaining and dahan_surviving and invader_cards_left_deck and invader_cards_used:
             score = 10 + difficulty * 5 + (dahan_surviving * 1) - (blight_remaining * 1) + invader_cards_left_deck * 2
             st.success(f"Score: {score}")
-# Save the data to Excel
-# write_to_excel([spirit, scenario, adversary, adversary_level, winState, blight_remaining, dahan_surviving,
-#  invader_cards_left_deck, invader_cards_used, difficulty_adversary, difficulty_scenario, difficulty, score])
         else:
             st.error("Please fill in all fields to calculate the score.")
     else:
         score = 0 + difficulty * 2 + (dahan_surviving * 1) - (blight_remaining * 1) + invader_cards_used * 1
         st.success(f"Score: {score}")
-# Save the data to Excel
-#write_to_excel([spirit, scenario, adversary, adversary_level, winState, blight_remaining, dahan_surviving,
-# invader_cards_left_deck, invader_cards_used, difficulty_adversary, difficulty_scenario, difficulty, score])
