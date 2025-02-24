@@ -78,12 +78,3 @@ if st.button("Show Summary for Screenshot"):
     st.write(f"**Invader Cards Left Deck:** {invader_cards_left_deck}")
     st.write(f"**Invader Cards Faceup:** {invader_cards_used}")
     st.write(f"**Final Score:** {score}")
-
-        if blight_remaining and dahan_surviving and invader_cards_left_deck and invader_cards_used:
-            score = 10 + difficulty * 5 + (dahan_surviving * 1) - (blight_remaining * 1) + invader_cards_left_deck * 2
-            st.success(f"Score: {score}")
-        else:
-            st.error("Please fill in all fields to calculate the score.")
-    else:
-        score = 0 + difficulty * 2 + (dahan_surviving * 1) - (blight_remaining * 1) + invader_cards_used * 1
-        st.success(f"Score: {score}")
