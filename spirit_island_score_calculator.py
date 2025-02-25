@@ -165,6 +165,7 @@ if st.button("Show Summary for Screenshot"):
     st.write(f"**Spirits:** {', '.join(selected_spirits)}")
     st.write(f"**Scenario:** {scenario}")
     st.write(f"**Adversary:** {adversary} (Level {adversary_level})")
+    st.write(f"**Difficulty:** {difficulty}")
     st.write(f"**Win:** {winState}")
     st.write(f"**Blight on Island:** {blight_remaining}")
     st.write(f"**Dahan Surviving:** {dahan_surviving}")
